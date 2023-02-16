@@ -193,6 +193,6 @@ app.post("/login",(req,res) => {
     });
 });
 
-app.listen(port, 'localhost', function() {
-    console.log('Listening to port:  ' + process.env.PORT);
+app.listen(port, function() {
+    console.log('Listening to port:  ' + port);
 });
