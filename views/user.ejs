@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node</title>
+
+    <script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        /*@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');*/
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+        body, html{
+            margin:0;
+            padding:0;
+            border:0;
+            font-family: 'Quicksand', sans-serif;
+            width:100%;
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar fixed-top bg-body-tertiary bg-white">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">ExamDuty Portal</a>
+                <div class="dropdown-center">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%=username%>
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Notifications</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <br><br><br><br>
+        <p class="fs-5">Today's Biometric</p>
+        <div class="card text-center">
+            <div class="card-header">
+              <ul class="nav nav-pills card-header-pills" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link disabled"><i class="fa-solid fa-spray-can"></i> Biometric</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" id="pills-morning-tab" data-bs-toggle="pill" data-bs-target="#pills-morning" type="button" role="tab" aria-controls="pills-morning" aria-selected="true" href="#"><%if(biometric[0]){%>✅<%}else{%>❌<%}%> Morning</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-afternoon-tab" data-bs-toggle="pill" data-bs-target="#pills-afternoon" type="button" role="tab" aria-controls="pills-afternoon" aria-selected="true" href="#" href="#"><%if(biometric[1]){%>✅<%}else{%>❌<%}%> AfterNoon</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-morning" role="tabpanel" aria-labelledby="pills-morning-tab" tabindex="0">
+                    <div class="row">
+                    <div class="col-4 d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center" style="background-color:white;border-radius:20px;border:0;width:100px;height:100px;">
+                            <i style="font-size:80px; background: -webkit-linear-gradient(<%if(biometric[0]){%>#abffb2, #60ff90<%}else{%>#adabff, #6085ff<%}%>);-webkit-background-clip: text;-webkit-text-fill-color: transparent;" class="fa-solid fa-fingerprint"></i>
+                        </div>
+                    </div>
+                    <div class="col-8 text-start">
+                        <h5 class="card-title">⛅ Morning Biometric</h5>
+                        <%if(biometric[0]){%>
+                        <p class="card-text">✅ Your Have Successfully Placed Your Morning Biometric</p>
+                        <p class="text-muted">Placed At: <%=keptAt[0]%> am</p>
+                        <%}else{%>
+                        <p class="card-text">❌ You Haven't Placed Your Morning Biometric Yet!</p>
+                        <a href="#" class="btn btn-light"><i class="fa-solid fa-rotate-right"></i> Refresh</a>
+                        <%}%>
+                    </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pills-afternoon" role="tabpanel" aria-labelledby="pills-afternoon-tab" tabindex="0">
+                    <div class="row">
+                    <div class="col-4 d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center" style="background-color:white; border-radius:20px;border:0;width:100px;height:100px;">
+                            <i style="font-size:80px; background: -webkit-linear-gradient(<%if(biometric[1]){%>#abffb2, #60ff90<%}else{%>#adabff, #6085ff<%}%>);-webkit-background-clip: text;-webkit-text-fill-color: transparent;" class="fa-solid fa-fingerprint"></i>
+                        </div>
+                    </div>
+                    <div class="col-8 text-start">
+                        <h5 class="card-title">🌞 Afternoon Biometric</h5>
+                        <%if(biometric[1]){%>
+                        <p class="card-text">✅ Your Have Successfully Placed Your Afternoon Biometric</p>
+                        <p class="text-muted">Placed At: <%=keptAt[1]%> pm</p>
+                        <%}else{%>
+                        <p class="card-text">❌ You Haven't Placed Your Afternoon Biometric Yet!</p>
+                        <a href="#" class="btn btn-light"><i class="fa-solid fa-rotate-right"></i> Refresh</a>
+                        <%}%>
+                    </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <hr style="border-style:dashed;"><br>
+
+        <p class="fs-5">Today's ExamDuty</p>
+        <div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">⛅ Morning</h5>
+                <%let nowTodayFlag = 0;const date = new Date();let day = date.getDate();for(var k = 0; k < allotments.length; k++){%>
+                    <%for(var l = 0; l < allExams.length; l++){%>
+                    <%if(allotments[k]["exam_id"] == allExams[l]["exam_id"] &&  day == parseInt(allExams[l]["exam_date"].slice(8,10)) && allExams[l]["exam_time"] == 0){nowTodayFlag = 1;%>
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Morning ExamDuty Hall Allotment</h4>
+                            <div class="row">
+                            <div class="col">
+                                <p>Exam Title<br>Exam Timing<br>Exam Session<br>Exam Hall</p>
+                            </div>
+                            <div class="col">
+                                <p><%=allExams[l]["exam_title"]%><br>8:15 am to 12:30 pm<br>Morning<br><%=allotments[k]["hall_name"]%></p>
+                            </div>
+                            <div class="w-100" style="border-radius: 20px;">
+                                <iframe src="https://geobits.onrender.com/"></iframe>
+                            </div>
+                            
+                            </div>
+                            <hr>
+                            <p class="mb-0">Your Hall: <strong><%=allotments[k]["hall_name"]%></strong></p>
+                        </div>
+                    <%}%>
+                    <%}%>
+                <%}%>
+
+                <%if(nowTodayFlag == 0){let todayFlag = 0;for(var i = 0;i < exams.length;i++){%>
+                <%if(day == parseInt(exams[i]["exam_date"].slice(8,10)) && exams[i]["exam_time"] == 0){todayFlag = 1;%>
+                    <p class="card-text"><span style="color:red;">ℹ</span> Your Exam Hall Will Be Alloted Only After Your Morning Biometric Is Placed</p>
+                    <a href="#" class="btn btn-light"><i class="fa-solid fa-rotate-right"></i> Refresh</a>
+                <%} }let flag=0;%>
+
+                <%if(todayFlag==0 && nowTodayFlag == 0){%>
+                    <p class="card-text text-center"> No ExamDuty For You In The Morning</p>
+                <%}}%>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title fs-6">🌞 Afternoon</h5>
+                <%nowTodayFlag = 0;for(var k = 0; k < allotments.length; k++){%>
+                    <%for(var l = 0; l < allExams.length; l++){%>
+                    <%if(allotments[k]["exam_id"] == allExams[l]["exam_id"] &&  day == parseInt(allExams[l]["exam_date"].slice(8,10)) && allExams[l]["exam_time"] == 1){nowTodayFlag = 1;%>
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Afternoon ExamDuty Hall Allotment</h4>
+                            <div class="row">
+                            <div class="col">
+                                <p>Exam Title<br>Exam Timing<br>Exam Session<br>Exam Hall</p>
+                            </div>
+                            <div class="col">
+                                <p><%=allExams[l]["exam_title"]%><br>2:15 am to 4:30 pm<br>Morning<br><%=allotments[k]["hall_name"]%></p>
+                            </div>
+                            </div>
+                            <hr>
+                            <p class="mb-0">Your Hall: <strong><%=allotments[k]["hall_name"]%></strong></p>
+                        </div>
+                    <%}%>
+                    <%}%>
+                <%}%>
+
+                <%if(nowTodayFlag == 0){todayFlag = 0;for(var i = 0;i < exams.length;i++){%>
+                <%if(day == parseInt(exams[i]["exam_date"].slice(8,10)) && exams[i]["exam_time"] == 1){todayFlag = 1;%>
+                    <p class="card-text"><span style="color:red;">ℹ</span> Your Exam Hall Will Be Alloted Only After Your Afternoon Biometric Is Placed</p>
+                    <a href="#" class="btn btn-light"><i class="fa-solid fa-rotate-right"></i> Refresh</a>
+                <%} }%>
+
+                <%if(todayFlag==0 && nowTodayFlag == 0){%>
+                    <p class="card-text text-center"> No ExamDuty For You In The Afternoon</p>
+                <%}}%>
+            </div>
+        </div>
+        </div>
+        <hr style="border-style:dashed;"><br>
+
+        <p class="fs-5"><i class="fa-regular fa-calendar-check"></i> Upcoming ExamDuty</p>
+        <div class="card">
+            <%let flag = 0;if(exams.length > 0){%>
+            <img src="Userbackdrop.jpg" class="card-img-top" alt="...">
+
+            <ul class="list-group list-group-flush">
+                <%for(var l = 0; l < exams.length; l++){%>
+                    <%if(day == parseInt(exams[l]["exam_date"].slice(8,10))) continue;%>
+                    <li class="list-group-item"><%=exams[l]["exam_title"]%> ○ <%=exams[l]["exam_date"]%> ○ <%if(exams[l]["exam_time"] == 0){%>Morning<%}else{%>Afternoon<%}%></li>
+                <%flag = 1;}%>
+            </ul>
+            <%} if(flag == 0){%>
+                <br>
+                <p class="text-muted text-center">There Are No Upcoming Exams!</p>
+            <%}%>
+            <div class="card-body text-end">
+              <a class="btn btn-light" data-bs-toggle="modal" data-bs-target="#completedDuties"><i class="fa-solid fa-check"></i> Completed Duties</a>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="modal fade" id="completedDuties" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="completedDutiesLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="completedDutiesLabel">Your Completed ExamDuties</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Exam</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Session</th>
+                        <th scope="col">Hall</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <%flag=0;for(let i = 0; i < exams.length;i++){%>
+                    <%if(day >= parseInt(exams[i]["exam_date"].slice(8,10))) continue;%>
+                    <tr>
+                        <th scope="row"><%=i+1%></th>
+                        <td><%=exams[i]["exam_title"]%></td>
+                        <td><%=exams[i]["exam_date"]%></td>
+                        <td><%if(exams[i]["exam_time"] == 0){%>Morning<%}else{%>Afternoon<%}%></td>
+                        <td> (in dev) </td>
+                    </tr>
+                    <%flag = 1;}%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Dismiss</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+
