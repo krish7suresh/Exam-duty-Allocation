@@ -9,6 +9,7 @@ require('dotenv').config();
 
 var cookie = {}
 const app = express();
+const port = process.env.PORT;
 app.use(cookieParser());
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -192,6 +193,6 @@ app.post("/login",(req,res) => {
     });
 });
 
-app.listen(process.env.PORT, 'localhost', function() {
+app.listen(port, 'localhost', function() {
     console.log('Listening to port:  ' + process.env.PORT);
 });
